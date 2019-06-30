@@ -1,0 +1,20 @@
+{
+  "name": "feedback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "e2e-test": "cucumber-js --require cucumber.conf.js --require step-definitions --format node_modules/cucumber-pretty",
+    "test": "cucumber-js --require src/config/support --require src/tests/step-definitions 'src/tests/feature' --format node_modules/cucumber-pretty"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chromedriver": "^75.0.0",
+    "cucumber": "^5.1.0",
+    "cucumber-pretty": "^1.5.2",
+    "geckodriver": "^1.16.2",
+    "nightwatch": "^1.1.12",
+    "nightwatch-api": "^2.3.0"
+  }
+}
