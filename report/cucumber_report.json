@@ -1,0 +1,162 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "As an user I am able to provide feedback of a application",
+    "line": 1,
+    "id": "as-an-user-i-am-able-to-provide-feedback-of-a-application",
+    "tags": [],
+    "uri": "src/tests/feature/feedbackbutton.feature",
+    "elements": [
+      {
+        "id": "as-an-user-i-am-able-to-provide-feedback-of-a-application;user-can-provide-a-suggestion-type-as-feedback-using-generic-feedback-button",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "User can provide a suggestion type as feedback using generic feedback button",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I have pop up with Generic feedback button",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5399000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "I give feedback using Generic feedback button",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 258000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "I able to see new pop up with different kind of feedbacks",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 334000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I choose Love kind of feedback",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 298000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "I see a drop down which have suggestion type in the list",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 459000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 17,
+            "name": "I select  type suggestion",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:59"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 294000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 18,
+            "name": "I see form to give a suggestion",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:64"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 94000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 19,
+            "name": "I fill the  form and submit",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 474000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "I see a pop with a message of submitting feedback",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 571000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "I continue my browsing",
+            "match": {
+              "location": "src/tests/step-definitions/feedbackbutton.js:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 86000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "src/config/support/cucumber-setup.js:37"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

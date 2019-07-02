@@ -27,12 +27,14 @@ Given('I have pop up with Generic feedback button', async function () {
                .assert.attributeContains('.usabilla_live_button_container > iframe', 'title', 'Usabilla Feedback Button')
                .click('.usabilla_live_button_container')
                .waitForElementPresent('.usabilla_scroller_area')
+
 });
 When('I give feedback using Generic feedback button', async function () {
   await client.waitForElementVisible(".usabilla_scroller_area > iframe")
                .frame(4)
                .waitForElementPresent(".choice_general h4")
                .click('.choice_general h4')
+               .frame(null)
 });
 Then('I able to see new pop up with different kind of feedbacks', async function () {
   await client.frame(4)
@@ -66,9 +68,10 @@ Then('I see form to give a suggestion', async function () {
 });
 
 When ('I fill the  form and submit', async function () {
-  await client.setValue("[data-condition='suggestion'] .comment_input textarea", "Amazing site")
+  await client .setValue("[data-condition='suggestion'] .comment_input textarea", "Amazing site")
                .setValue("[data-condition='suggestion'] .email_input .text","g@gmail.com")
-               .click(".submit")
+               .click("button.submit")
+
 });
 
 Then('I see a pop with a message of submitting feedback', async function () {

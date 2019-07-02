@@ -1,0 +1,11 @@
+version: '2.1'
+
+services:
+  cli:
+    build:
+      context: docker/cli
+    image: b2b-uat-tests_cli
+    ports:
+    - 4444:4444
+    volumes:
+      - .:/opt/webapp

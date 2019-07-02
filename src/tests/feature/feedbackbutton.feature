@@ -1,11 +1,11 @@
 Feature: As an user I am able to provide feedback of a application
 
-Scenario: Find feedback button and click
-
-  Given I have a valid web application integrated with Usabilla
-  Then Feedback button should display
-  When I click on feedback button
-  Then Usabilla feedback pop up get display
+#Scenario: Find feedback button and click
+#
+#  Given I have a valid web application integrated with Usabilla
+#  Then Feedback button should display
+#  When I click on feedback button
+#  Then Usabilla feedback pop up get display
 
   Scenario: User can provide a suggestion type as feedback using generic feedback button
 
