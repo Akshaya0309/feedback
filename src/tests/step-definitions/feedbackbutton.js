@@ -69,7 +69,7 @@ Then('I see form to give a suggestion', async function () {
 
 When ('I fill the  form and submit', async function () {
   await client .setValue("[data-condition='suggestion'] .comment_input textarea", "Amazing site")
-               .setValue("[data-condition='suggestion'] .email_input .text","g@gmail.com")
+               .setValue("[data-condition='suggestion'] .email_input .text","feedback@gmail.com")
                .click("button.submit")
 
 });

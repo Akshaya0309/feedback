@@ -49,31 +49,9 @@ ENV CHROMEDRIVER_URL_BASE ''
 ENV CHROMEDRIVER_EXTRA_ARGS ''
 
 
-
-# Firefox browser to run the tests
-#COPY debian-mozilla.list /etc/apt/sources.list.d/debian-mozilla.list
-#RUN wget mozilla.debian.net/pkg-mozilla-archive-keyring_1.1_all.deb
-#RUN dpkg -i pkg-mozilla-archive-keyring_1.1_all.deb
-#RUN rm pkg-mozilla-archive-keyring_1.1_all.deb
-#
-#RUN apt-get update && apt-get install -t firefox
-
-# Install Gecko Driver
-ENV GECKODRIVER_VERSION 0.23.0
-RUN wget --no-verbose -O /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v$GECKODRIVER_VERSION/geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz \
-  && rm -rf /opt/geckodriver \
-  && tar -C /opt -zxf /tmp/geckodriver.tar.gz \
-  && rm /tmp/geckodriver.tar.gz \
-  && mv /opt/geckodriver /opt/geckodriver-$GECKODRIVER_VERSION \
-  && chmod 755 /opt/geckodriver-$GECKODRIVER_VERSION \
-  && ln -fs /opt/geckodriver-$GECKODRIVER_VERSION /usr/bin/geckodriver \
-  && ln -fs /opt/geckodriver-$GECKODRIVER_VERSION /usr/bin/wires
-
-
 WORKDIR /opt/webapp
 RUN npm install
 
 RUN ln -s /opt/webapp/node_modules/yarn/bin/yarn /usr/local/bin/yarn
-
 
 EXPOSE 4444

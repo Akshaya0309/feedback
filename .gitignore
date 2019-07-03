@@ -3,7 +3,6 @@
 # dependencies
 /node_modules
 
-
 # System Files
 .DS_Store
 Thumbs.db
@@ -13,12 +12,11 @@ Thumbs.db
 /.gradle/
 /.Trash-1000
 npm-debug.log
-
-package-lock.json
 chromedriver.log
 geckodriver.log
 
-
+package-lock.json
+b2b-automation-tests.iml
 
 # IDEs and editors
 /.idea

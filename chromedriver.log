@@ -1,4 +1,5 @@
 Starting ChromeDriver 74.0.3729.6 (255758eccf3d244491b8a1317aa76e1ce10d57e9-refs/branch-heads/3729@{#29}) on port 4444
 Only local connections are allowed.
 Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
-[1562097557.557][WARNING]: This version of ChromeDriver has not been tested with Chrome version 75.
+[1562147341.833][SEVERE]: bind() failed: Cannot assign requested address (99)
+[1562147342.240][WARNING]: This version of ChromeDriver has not been tested with Chrome version 75.
