@@ -2,7 +2,8 @@
 
 ## feedback-automation-tests
 git clone git@github.com:Akshaya0309/feedback.git
-Go inside the feedback folder and run below commands 
+
+
 
 location - feedback/src/tests/feature/feedbackbutton.feature
 
@@ -14,6 +15,8 @@ location - feedback/src/tests/feature/feedbackbutton.feature
 - Google chrome Browser - latest
 - Firefox browser- latest
 - Install yarn globally  # feedback-tests
+  
+  Go inside the feedback folder and run below commands 
   
 ```
   
