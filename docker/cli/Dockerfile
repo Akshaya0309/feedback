@@ -23,6 +23,12 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get -yqq update && \
     apt-get -yqq install software-properties-common nodejs
 
+# Install Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get -yq install yarn
+
 # Install Chrome WebDriver
 RUN CHROMEDRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` && \
     mkdir -p /opt/chromedriver-$CHROMEDRIVER_VERSION && \
@@ -50,8 +56,10 @@ ENV CHROMEDRIVER_EXTRA_ARGS ''
 
 
 WORKDIR /opt/webapp
-RUN npm install
+RUN yarn install
 
-RUN ln -s /opt/webapp/node_modules/yarn/bin/yarn /usr/local/bin/yarn
+CMD ["yarn", "test-e2e"]
+#
+#RUN ln -s /opt/webapp/node_modules/yarn/bin/yarn /usr/local/bin/yarn
 
 EXPOSE 4444
