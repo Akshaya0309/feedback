@@ -1,0 +1,188 @@
+import groovy.io.FileType
+
+final BUILD_GROUP = '__ Build __'
+final RUN_GROUP = '__ Run __'
+
+/**
+ * Write local configuration file for Docker Compose
+ */
+def writeDockerComposeEnvFile() {
+    def userId = new ByteArrayOutputStream()
+    def groupId = new ByteArrayOutputStream()
+    def dockerComposeEnvFile = new File('docker/.env')
+    def projectName = 'teste-box'
+
+    exec {
+        executable 'id'
+        args '-u'
+        standardOutput userId;
+    }
+
+    exec {
+        executable 'id'
+        args '-g'
+        standardOutput groupId
+    }
+
+    dockerComposeEnvFile.write("USER_ID=${userId}GROUP_ID=${groupId}COMPOSE_PROJECT_NAME=${projectName}")
+}
+
+writeDockerComposeEnvFile()
+
+/**
+ * Task definition for Docker Compose Run Tasks
+ */
+class DockerComposeRunTask extends DefaultTask {
+    List<String> commandArgs = []
+    List<String> environmentArgs = []
+    String container = null
+
+    def command(Object... command) {
+        commandArgs.addAll(command)
+    }
+
+    def container(String container) {
+        this.container = container
+    }
+
+    def environment(Object... environment) {
+        this.environmentArgs.addAll(environment)
+    }
+
+    @TaskAction
+    def run() {
+        if (container == null) {
+            throw new GradleException('The docker-compose service was not set, please specify the container type.')
+        }
+
+        println 'Running command "' + commandArgs.join(' ') + '" in container "' + container + '"'
+        project.exec {
+            workingDir './docker'
+            executable 'docker-compose'
+            args 'run', '--rm'
+            environmentArgs.each { args '-e', it }
+            args container
+            args commandArgs
+        }
+    }
+
+}
+
+task buildContainers {
+    description = 'Build Docker containers'
+    group = BUILD_GROUP
+
+    doLast {
+        exec {
+            workingDir '.'
+            executable 'docker-compose'
+            args 'build', 'test_e2e_cli'
+        }
+    }
+}
+
+task runDocker {
+    description = 'Run the project'
+    group = RUN_GROUP
+
+    doFirst {
+        exec {
+            workingDir '.'
+            executable 'docker-compose'
+            args 'run', 'test_e2e_cli', 'yarn', 'test:chromeheadless'
+        }
+    }
+}
+
+task dockerCleanTestE2e {
+    description "Stop and remove all e2e test containers and its volumes"
+    group 'docker'
+
+    doLast {
+        clean()
+    }
+}
+
+ext.clean = {
+    exec {
+        ignoreExitValue true
+        commandLine 'bash', '-c', "docker ps -aq | xargs docker rm -fv"
+    }
+}
+gradle wrapper --gradle-version 5.5.1 --distribution-type all
+
+task dockerBuildTest {
+    description "Build test images"
+    group 'docker'
+
+    doLast {
+
+        dockerCompose.build(['test_e2e_cli'])
+
+    }
+}
+
+// docker
+ext.dockerCompose = [
+        build: { services = [], buildArgs = [], env = [:], noCache = false ->
+            exec {
+                executable 'docker-compose'
+                environment << env
+               // args '-f', 'test_e2e_cli'
+                args 'build'
+                args '--force-rm'
+                args '--pull'
+                if (noCache) {
+                    args '--no-cache'
+                }
+                buildArgs.each { args '--build-arg', it }
+                args services
+            }
+        },
+        run: { name, service, command, commandArgs = [], env = [] ->
+            exec {
+                executable 'docker-compose'
+                args '-f', DOCKER_COMPOSE
+                args 'run'
+                args '--rm'
+                args '--name', "${PROJECT}_${name}"
+                env.each { args '-e', it }
+                args service
+                args command
+                args commandArgs
+            }
+        },
+        stop: { services = [] ->
+            exec {
+                executable 'docker-compose'
+                args '-f', DOCKER_COMPOSE
+                args 'stop'
+                args services
+            }
+        },
+        up: { service, removeOrphans = true ->
+            exec {
+                executable 'docker-compose'
+                args '-f', DOCKER_COMPOSE
+                args 'up'
+                args '-d'
+                if (removeOrphans) {
+                    args '--remove-orphans'
+                }
+                args service
+            }
+        }
+]
+
+
+task testE2e (dependsOn: ['dockerCleanTestE2e', 'dockerBuildTest']) {
+    description "Run end-to-end tests"
+    group 'test'
+
+    doLast {
+
+        dockerCompose.run('test-e2e', 'test_e2e_cli', 'yarn', 'test-e2e')
+
+        cleanTestE2e()
+    }
+}

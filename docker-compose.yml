@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-  cli:
+  test_e2e_cli:
     build:
       context: docker/cli
     image: b2b-uat-tests_cli

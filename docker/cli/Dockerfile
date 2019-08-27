@@ -58,7 +58,7 @@ ENV CHROMEDRIVER_EXTRA_ARGS ''
 WORKDIR /opt/webapp
 RUN yarn install
 
-CMD ["yarn", "test-e2e"]
+#?\CMD ["yarn", "test:chromeheadless"]
 #
 #RUN ln -s /opt/webapp/node_modules/yarn/bin/yarn /usr/local/bin/yarn
 
